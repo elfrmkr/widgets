@@ -8,20 +8,24 @@ const Accordion = ({items}) => {
     // this is not array, this is giving reference to elements. First element is like state, second is a function that updates the state
     //useState takes one argument, the default value
     // names are not special
+    /*if we have multiple terms in a state, useState should be use as the number of terms.*/
     const [activeIndex, setActiveIndex] = useState(null);
 
     const onTitleClick = index => {
         setActiveIndex(index);
     };
+    // active classnames decides whether an element is expending or not
     const renderedItems = items.map((item, index) => {
+    const active = index === activeIndex ? 'active' : '';
+
         return (<React.Fragment key = {item.title}>
             <div 
-            className = "title active"
+            className = {`title ${active}`}
             onClick = {() => onTitleClick(index)}>
                 <i className = "dropdown icon"></i>
                 {item.title}
             </div>
-            <div className = "content active">
+            <div className = {`content ${active}`}>
                 <p>{item.content}</p>
             </div>
         </React.Fragment>)
@@ -29,7 +33,6 @@ const Accordion = ({items}) => {
     return(
        <div className = "ui styled accordion">
            {renderedItems}
-           <h1>{activeIndex}</h1>
        </div>
     );
 };
