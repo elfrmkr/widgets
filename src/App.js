@@ -1,28 +1,43 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React from 'react';
+import React, {useState} from 'react';
 import Accordion from './components/Accordion';
 import Search from './components/search';
+import Dropdown from './components/dropdown';
 
-const items = 
-[
+
+const options = [
     {
-        title: 'What is react?',
-        content: 'React is a frontend javascript framework'
+        label: 'Red',
+        color: 'red'
     },
     {
-        title: 'Why use react?',
-        content: 'React is a favorite js library'
+        label: 'Blue',
+        color: 'blue'
     },
     {
-        title: 'how do you use react?',
-        content: 'React is with creating components'
+        label: 'Green',
+        color: 'green'
     }
 ];
-export default () => {
-    return (
-        <div>
-            <Search/>
-        </div>
-    );
-};
+const App = () => {
+    const [selected, setSelected] = useState(options[0]);
+    const [showDropdown, setshowDropdown] = useState(true);
 
+    return (
+      <div>
+      <button 
+      onClick={() => setshowDropdown(!showDropdown)}
+      style = {{color: `${selected.color}`}}>
+      Toggle Dropdown</button>
+        { showDropdown ? 
+          <Dropdown
+          selected={selected}
+          onSelectedChange={setSelected}
+          options={options}
+          style = {{color: `${selected.color}`}}
+        /> : null
+        }
+      </div>
+    );
+  };
+  export default App;

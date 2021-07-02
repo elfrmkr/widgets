@@ -19,7 +19,8 @@ const Search = () => {
  // we cannot mark the function that we pass in useEffect as async function
  //    (async () => {
 //         await axios.get('r434');
-//     })(); // this defines a function and then immidiately invokes it or just a const async func
+//     })(); // this defines a function and then immediately invokes it or just a const async func
+
     useEffect(() => {
       const search = async () => {
         const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
@@ -31,15 +32,23 @@ const Search = () => {
             srsearch: term,
           },
         });
-  
         setResults(data.query.search);
       };
 
-    setTimeout(() => {
+if (term && !results.length){
+  search();
+}
+else {
+     const timeoutId = setTimeout(() => {
         if(term){ search();}
-    }, 500);
+    }, 700);
 
-    }, [term]);
+    return() => {
+      clearTimeout(timeoutId);
+    };
+  }
+
+}, [term, results.length]);
 
     const renderedResults = results.map((result) => {
 
