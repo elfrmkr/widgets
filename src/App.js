@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import Accordion from './components/Accordion';
 import Search from './components/search';
 import Dropdown from './components/dropdown';
+import Translate from './components/translate';
 
 
 const options = [
@@ -37,6 +38,7 @@ const App = () => {
           style = {{color: `${selected.color}`}}
         /> : null
         }
+        <div className = " ui container"><Translate/></div>
       </div>
     );
   };
