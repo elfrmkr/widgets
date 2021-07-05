@@ -50,6 +50,7 @@ const Translate = () => {
                 selected = {language}
                 onSelectedChange = {setLanguage}
             />
+          <br/>  
           <hr/>
          
            <h3 className= "ui header">Output</h3>

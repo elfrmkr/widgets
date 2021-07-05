@@ -4,6 +4,8 @@ import Accordion from './components/Accordion';
 import Search from './components/search';
 import Dropdown from './components/dropdown';
 import Translate from './components/translate';
+import Route from './components/route';
+import Header from './components/Header';
 
 
 const options = [
@@ -20,25 +22,46 @@ const options = [
         color: 'green'
     }
 ];
-const App = () => {
-    const [selected, setSelected] = useState(options[0]);
-    const [showDropdown, setshowDropdown] = useState(true);
 
+const terms = [
+  {
+      title: 'Red',
+      content: 'red is the color of love'
+  },
+  {
+      title: 'Blue',
+      content: 'blue represents calmness'
+  },
+  {
+      title: 'Green',
+      content: 'green is nature'
+  }
+];
+
+const App = () => {
+  const [selected, setSelected] = useState(options[0]);
     return (
       <div>
-      <button 
-      onClick={() => setshowDropdown(!showDropdown)}
-      style = {{color: `${selected.color}`}}>
-      Toggle Dropdown</button>
-        { showDropdown ? 
-          <Dropdown
-          selected={selected}
-          onSelectedChange={setSelected}
-          options={options}
-          style = {{color: `${selected.color}`}}
-        /> : null
-        }
-        <div className = " ui container"><Translate/></div>
+      <Header/>
+        <div className = " ui container">
+         <Route path = '/'>
+           <Accordion items = {terms}/>
+         </Route>
+         <Route path = '/list'>
+           <Search/>
+         </Route>
+         <Route path = '/dropdown'>
+           <Dropdown 
+              label = "Select a color"
+              options = {options}
+              selected = {selected}
+              onSelectedChange = {setSelected}
+           />
+         </Route>
+         <Route path = '/translate'>
+           <Translate/>
+         </Route>
+        </div>
       </div>
     );
   };
